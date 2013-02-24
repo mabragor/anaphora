@@ -2,11 +2,10 @@
 ;;;;
 ;;;; This been placed in Public Domain by the author, 
 ;;;; Nikodemus Siivola <nikodemus@random-state.net>
-
 (defpackage :anaphora
-  (:use :cl)
+  (:nicknames #:a)
+  (:use #:cl #:defmacro-enhance)
   (:export
-   #:it
    #:alet
    #:slet
    #:aif
@@ -40,7 +39,6 @@ ANAPHORA-SYMBOL."))
 (defpackage :anaphora-basic
   (:use :cl :anaphora)
   (:export
-   #:it
    #:alet
    #:aif
    #:aand
@@ -60,7 +58,6 @@ primary values to IT."))
 (defpackage :anaphora-symbol
   (:use :cl :anaphora)
   (:export
-   #:it
    #:slet
    #:sor
    #:sif

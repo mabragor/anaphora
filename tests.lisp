@@ -1,7 +1,5 @@
 ;;;; Anaphora: The Anaphoric Macro Package from Hell
-;;;;
-;;;; This been placed in Public Domain by the author,
-;;;; Nikodemus Siivola <nikodemus@random-state.net>
+;;;; See LICENCE for details.
 
 (defpackage :anaphora-test
   (:use :cl :anaphora :rt))
