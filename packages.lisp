@@ -1,85 +1,10 @@
-;;;; Anaphora: The Anaphoric Macro Package from Hell
-;;;;
-;;;; This been placed in Public Domain by the author, 
-;;;; Nikodemus Siivola <nikodemus@random-state.net>
-(defpackage :anaphora
+;;;; Part of YACLANAPHT software system
+;;;; See COPYING for details.
+
+(defpackage #:yaclanapht
   (:nicknames #:a)
   (:use #:cl #:defmacro-enhance)
-  (:export
-   #:alet
-   #:slet
-   #:aif
-   #:aand
-   #:sor
-   #:awhen
-   #:aprog1
-   #:acase
-   #:aecase
-   #:accase
-   #:atypecase
-   #:aetypecase
-   #:actypecase
-   #:acond
-   #:sif
-   #:asif
-   #:swhen
-   #:sunless
-   #:scase
-   #:secase
-   #:sccase
-   #:stypecase
-   #:setypecase
-   #:sctypecase
-   #:scond)
-  (:documentation 
-   "ANAPHORA provides a full complement of anaphoric macros. Subsets of the
-functionality provided by this package are exported from ANAPHORA-BASIC and
-ANAPHORA-SYMBOL."))
-
-(defpackage :anaphora-basic
-  (:use :cl :anaphora)
-  (:export
-   #:alet
-   #:aif
-   #:aand
-   #:awhen
-   #:aprog1
-   #:acase
-   #:aecase
-   #:accase
-   #:atypecase
-   #:aetypecase
-   #:actypecase
-   #:acond)
-  (:documentation 
-   "ANAPHORA-BASIC provides all normal anaphoric constructs, which bind
-primary values to IT."))
-   
-(defpackage :anaphora-symbol
-  (:use :cl :anaphora)
-  (:export
-   #:slet
-   #:sor
-   #:sif
-   #:asif
-   #:swhen
-   #:sunless
-   #:scase
-   #:secase
-   #:sccase
-   #:stypecase
-   #:setypecase
-   #:sctypecase
-   #:scond)
-  (:documentation
-   "ANAPHORA-SYMBOL provides ``symbolic anaphoric macros'', which bind forms
-to IT via SYMBOL-MACROLET. 
-
-Examples:
-
-  (sor (gethash key table) (setf it default))
-
-  (asif (gethash key table)
-        (foo it)            ; IT is a value bound by LET here
-        (setf it default))  ; IT is the GETHASH form bound by SYMBOL-MACROLET here
-"))
+  (:export #:aif)
+  (:documentation "Collection of anaphoric macros from 'On Lisp' and 'Let Over Lambda'.
+Distinct feature is that it interns IT (and other anaphoric symbols) directly into callee-package's
+namespace."))

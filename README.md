@@ -1,45 +1,32 @@
 anaphora
 ========
 
-Anaphoric macros, as they should be.
+Yet another anaphoric macro package. Why?
 
-In the original implementation, found in CVS and (currently 2013/02/24) found on quicklisp, following sequence on commands would not work.
+Currently (as of 2013/02/24) other available anaphoric macro packages do not allow the
+following sequence of steps to work.
 
-        CL-USER> (ql:quickload 'anaphora)
-        To load "anaphora":
-          Load 1 ASDF system:
-            anaphora
-        ; Loading "anaphora"
-        [package anaphora]................................
-        [package anaphora-basic]..........................
-        [package anaphora-symbol]
-        (ANAPHORA)
-        CL-USER> (anaphora:aif (+ 1 2) it 6)
+        CL-USER> (ql:quickload 'yaclanapht)
+        CL-USER> (yaclanapht:aif (+ 1 2) it 6)
         3
 
-That is, library would not work correctly, unless you USE it.
-Depending on the point of view, this is either a slight inconvenience,
-or a serious drawback, since it forbids use of library in the
-"script" context, when one does not want to create an asdf:system yet,
-but is in the very beginning stage of experimental programming, yet,
-wants to have the power of anaphoric macro at his disposal.
+For things to work correctly, you should use the package, which basicaly means,
+that you should create your own package, which prohibits script-like programming
+style, found in Perl or Python.
 
-Requirement to USE a library also is a little bit buggy.
-Since IT is shared among all using packages, suppose we have the code
+This package is intended to fill the gap. With it, abovewritten code works
+just as intended (i.e., works). It does so by interning IT during macroexpansion
+in the caller's package, not definer's.
 
-        (in-package foo)
-        
-        (defparameter it nil "Insane, I know, but IT is now dynamical")
-        
-        (in-package bar)
+To make this not-using style even more convenient, nickname "A" is chosen for
+this package. I believe, that in this case this is justifiable, since there
+isn't really other clear candidate for the name except anaphoric macro collection package.
 
-        ;; This will probably not create what you want (the dynamic closure).
-        (defun blah (x)
-          (aif (+ 1 2)
-            (lambda ()
-              it)))
+Also, some macros, found in classic books ("On Lisp", "Let over Lambda") work
+as described there (for example, ALET), and not in some trivial noninteresting way.
 
-These two drawbacks are corrected in this version of the package, by
-writing macros, that intern some symbols (here - IT) in the package, where
-they are expanded, not defined.
-
+TODO:
+1) include analogs of all macros in ANAPHORA
+2) include DEFANAPH from "On Lisp"
+3) include ALET and ALET-FSM from "LOL"
+4) include xyz-lambda reader macro.
