@@ -5,7 +5,7 @@
     :version "0.1"
     :serial t
     :licence "GPLv3"
-    :depends-on (#:defmacro-enhance)
+    :depends-on (#:defmacro-enhance #:iterate)
     :components ((:file "packages")
 		 (:file "yaclanapht")))
 

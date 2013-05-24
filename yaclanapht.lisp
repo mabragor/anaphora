@@ -47,3 +47,16 @@ return-values of clauses."
 		    ,acc))))
     (rec nil (reverse clauses))))
 	 
+(defmacro! acond-got (&body clauses)
+  "Like COND, but assumes that all clauses predicates return 2 values: IT and GOT (like GETHASH function).
+Clause succeeds, if GOT is T and IT is bound to the first value in the body of the clause."
+  (let (result)
+    (iter (for (predicate . body) in (reverse clauses))
+	  (setf result (if (eq predicate t)
+			   `(progn ,@body)
+			   `(multiple-value-bind (,e!-it ,g!-got) ,predicate
+			      (if ,g!-got
+				  (progn ,@body)
+				  ,result)))))
+    result))
+	
