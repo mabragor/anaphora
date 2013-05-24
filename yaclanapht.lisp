@@ -59,4 +59,16 @@ Clause succeeds, if GOT is T and IT is bound to the first value in the body of t
 				  (progn ,@body)
 				  ,result)))))
     result))
+
+(defmacro! avcond-got (var &body clauses)
+  "Anaphoric-variants ACOND-GOT."
+  (let (result)
+    (iter (for (predicate . body) in (reverse clauses))
+	  (setf result (if (eq predicate t)
+			   `(progn ,@body)
+			   `(multiple-value-bind (,var ,g!-got) ,predicate
+			      (if ,g!-got
+				  (progn ,@body)
+				  ,result)))))
+    result))
 	
