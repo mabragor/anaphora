@@ -14,6 +14,14 @@
      (when ,e!-it
        ,@body)))
 
+(defmacro! avif (var test then &optional else)
+  "Anaphoric-variants IF. Binds VAR to result of TEST evaluation."
+  `(let ((,var ,test))
+     (if ,var
+	 ,then
+	 ,@(if else `(,else)))))
+
+  
 (defmacro! apif (op test then &optional else)
   "Anaphoric-predicative if (i.e. it binds IT to
 test, then uses OP to determine whether to go to THEN or
